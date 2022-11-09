@@ -43,6 +43,12 @@ func (h *HandlerTodo) GetAllTodo(c echo.Context) (err error) {
 func (h *HandlerTodo) CreateTodo(c echo.Context) (err error) {
 	var req models.Todo
 
+	if err = c.Bind(&req); err != nil {
+		return c.JSON(http.StatusBadRequest, echo.Map{
+			"message": "bad request",
+		})
+	}
+
 	if req.Title == "" {
 		return c.JSON(http.StatusBadRequest, echo.Map{
 			"status":  "Bad Request",
@@ -60,11 +66,7 @@ func (h *HandlerTodo) CreateTodo(c echo.Context) (err error) {
 	}
 
 	if req.Priority == "" {
-		return c.JSON(http.StatusBadRequest, echo.Map{
-			"status":  "Bad Request",
-			"message": "priority cannot be null",
-			"data":    nil,
-		})
+		req.Priority = "very-high"
 	}
 
 	handler := repositories.NewHandlerTodo(h.db)
@@ -108,6 +110,12 @@ func (h *HandlerTodo) GetTodo(c echo.Context) (err error) {
 
 func (h *HandlerTodo) UpdateTodo(c echo.Context) (err error) {
 	var req models.Todo
+
+	if err = c.Bind(&req); err != nil {
+		return c.JSON(http.StatusBadRequest, echo.Map{
+			"message": "bad request",
+		})
+	}
 
 	if req.Title == "" {
 		return c.JSON(http.StatusBadRequest, echo.Map{

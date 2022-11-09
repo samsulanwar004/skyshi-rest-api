@@ -40,7 +40,11 @@ func (h *HandlerActivity) GetAllActivity(c echo.Context) (err error) {
 
 func (h *HandlerActivity) CreateActivity(c echo.Context) (err error) {
 	var req models.Activity
-
+	if err = c.Bind(&req); err != nil {
+		return c.JSON(http.StatusBadRequest, echo.Map{
+			"message": "bad request",
+		})
+	}
 	if req.Title == "" {
 		return c.JSON(http.StatusBadRequest, echo.Map{
 			"status":  "Bad Request",
@@ -90,6 +94,11 @@ func (h *HandlerActivity) GetActivity(c echo.Context) (err error) {
 
 func (h *HandlerActivity) UpdateActivity(c echo.Context) (err error) {
 	var req models.Activity
+	if err = c.Bind(&req); err != nil {
+		return c.JSON(http.StatusBadRequest, echo.Map{
+			"message": "bad request",
+		})
+	}
 
 	if req.Title == "" {
 		return c.JSON(http.StatusBadRequest, echo.Map{
