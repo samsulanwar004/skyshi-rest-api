@@ -5,17 +5,11 @@ import (
 	"log"
 	"os"
 
-	"github.com/joho/godotenv"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
 func DBConnection() (*gorm.DB, error) {
-
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatalf("Some error occured. Err: %s", err)
-	}
 
 	HOST := os.Getenv("MYSQL_HOST")
 	PORT := os.Getenv("MYSQL_PORT")
