@@ -10,6 +10,11 @@ import (
 
 func DBConnection() (*gorm.DB, error) {
 
+	// err := godotenv.Load()
+	// if err != nil {
+	// 	log.Fatalf("Some error occured. Err: %s", err)
+	// }
+
 	HOST := os.Getenv("MYSQL_HOST")
 	PORT := os.Getenv("MYSQL_PORT")
 	USER := os.Getenv("MYSQL_USER")

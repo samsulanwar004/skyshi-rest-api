@@ -51,6 +51,14 @@ func (h *HandlerActivity) CreateActivity(c echo.Context) (err error) {
 		})
 	}
 
+	if req.Title == "" {
+		return c.JSON(http.StatusBadRequest, echo.Map{
+			"status":  "Bad Request",
+			"message": "title cannot be null",
+			"data":    nil,
+		})
+	}
+
 	handler := repositories.NewHandlerActivity(h.db)
 	result, err := handler.CreateActivity(req)
 
@@ -60,7 +68,7 @@ func (h *HandlerActivity) CreateActivity(c echo.Context) (err error) {
 		})
 	}
 
-	return c.JSON(http.StatusOK, echo.Map{
+	return c.JSON(http.StatusCreated, echo.Map{
 		"status":  "Success",
 		"message": "Success",
 		"data":    result,

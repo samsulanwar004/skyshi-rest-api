@@ -53,6 +53,30 @@ func (h *HandlerTodo) CreateTodo(c echo.Context) (err error) {
 		})
 	}
 
+	if req.Title == "" {
+		return c.JSON(http.StatusBadRequest, echo.Map{
+			"status":  "Bad Request",
+			"message": "title cannot be null",
+			"data":    nil,
+		})
+	}
+
+	if req.ActivityGroupID == 0 {
+		return c.JSON(http.StatusBadRequest, echo.Map{
+			"status":  "Bad Request",
+			"message": "activity_group_id cannot be null",
+			"data":    nil,
+		})
+	}
+
+	if req.Priority == "" {
+		return c.JSON(http.StatusBadRequest, echo.Map{
+			"status":  "Bad Request",
+			"message": "priority cannot be null",
+			"data":    nil,
+		})
+	}
+
 	handler := repositories.NewHandlerTodo(h.db)
 	result, err := handler.CreateTodo(req)
 
@@ -62,7 +86,7 @@ func (h *HandlerTodo) CreateTodo(c echo.Context) (err error) {
 		})
 	}
 
-	return c.JSON(http.StatusOK, echo.Map{
+	return c.JSON(http.StatusCreated, echo.Map{
 		"status":  "Success",
 		"message": "Success",
 		"data":    result,
@@ -118,7 +142,7 @@ func (h *HandlerTodo) UpdateTodo(c echo.Context) (err error) {
 	result, err := handler.UpdateTodo(req)
 
 	if err != nil {
-		msg := fmt.Sprintf("Activity with ID %d Not Found", req.ID)
+		msg := fmt.Sprintf("Todo with ID %d Not Found", req.ID)
 		return c.JSON(http.StatusNotFound, echo.Map{
 			"status":  "Not Found",
 			"message": msg,
