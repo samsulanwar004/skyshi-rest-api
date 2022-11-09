@@ -69,6 +69,8 @@ func (h *HandlerTodo) CreateTodo(c echo.Context) (err error) {
 		req.Priority = "very-high"
 	}
 
+	req.IsActive = true
+
 	handler := repositories.NewHandlerTodo(h.db)
 	result, err := handler.CreateTodo(req)
 
@@ -114,14 +116,6 @@ func (h *HandlerTodo) UpdateTodo(c echo.Context) (err error) {
 	if err = c.Bind(&req); err != nil {
 		return c.JSON(http.StatusBadRequest, echo.Map{
 			"message": "bad request",
-		})
-	}
-
-	if req.Title == "" {
-		return c.JSON(http.StatusBadRequest, echo.Map{
-			"status":  "Bad Request",
-			"message": "title cannot be null",
-			"data":    nil,
 		})
 	}
 
