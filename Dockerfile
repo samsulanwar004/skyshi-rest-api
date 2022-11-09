@@ -13,7 +13,7 @@ RUN go mod download
 COPY . .
 
 # Build the Go app
-RUN go build -o main main.go
+RUN go build -o main server.go
 
 
 # This container exposes port 3030 to the outside world
