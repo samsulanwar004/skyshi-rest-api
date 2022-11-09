@@ -21,11 +21,6 @@ func NewHandlerTodo(db *gorm.DB) *HandlerTodo {
 
 func (h *HandlerTodo) GetAllTodo(c echo.Context) (err error) {
 	var req models.Todo
-	if err = c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, echo.Map{
-			"message": "bad request",
-		})
-	}
 
 	req.ActivityGroupID, _ = strconv.Atoi(c.QueryParam("activity_group_id"))
 
@@ -47,11 +42,6 @@ func (h *HandlerTodo) GetAllTodo(c echo.Context) (err error) {
 
 func (h *HandlerTodo) CreateTodo(c echo.Context) (err error) {
 	var req models.Todo
-	if err = c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, echo.Map{
-			"message": "bad request",
-		})
-	}
 
 	if req.Title == "" {
 		return c.JSON(http.StatusBadRequest, echo.Map{
@@ -95,11 +85,6 @@ func (h *HandlerTodo) CreateTodo(c echo.Context) (err error) {
 
 func (h *HandlerTodo) GetTodo(c echo.Context) (err error) {
 	var req models.Todo
-	if err = c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, echo.Map{
-			"message": "bad request",
-		})
-	}
 
 	req.ID, _ = strconv.Atoi(c.Param("id"))
 	handler := repositories.NewHandlerTodo(h.db)
@@ -123,11 +108,6 @@ func (h *HandlerTodo) GetTodo(c echo.Context) (err error) {
 
 func (h *HandlerTodo) UpdateTodo(c echo.Context) (err error) {
 	var req models.Todo
-	if err = c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, echo.Map{
-			"message": "bad request",
-		})
-	}
 
 	if req.Title == "" {
 		return c.JSON(http.StatusBadRequest, echo.Map{
@@ -159,11 +139,6 @@ func (h *HandlerTodo) UpdateTodo(c echo.Context) (err error) {
 
 func (h *HandlerTodo) DeleteTodo(c echo.Context) (err error) {
 	var req models.Todo
-	if err = c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, echo.Map{
-			"message": "bad request",
-		})
-	}
 
 	req.ID, _ = strconv.Atoi(c.Param("id"))
 	handler := repositories.NewHandlerTodo(h.db)

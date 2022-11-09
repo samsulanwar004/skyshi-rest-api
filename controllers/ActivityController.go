@@ -21,11 +21,6 @@ func NewHandlerActivity(db *gorm.DB) *HandlerActivity {
 
 func (h *HandlerActivity) GetAllActivity(c echo.Context) (err error) {
 	var req models.Activity
-	if err = c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, echo.Map{
-			"message": "bad request",
-		})
-	}
 
 	handler := repositories.NewHandlerActivity(h.db)
 	result, err := handler.GetAllActivity(req)
@@ -45,11 +40,6 @@ func (h *HandlerActivity) GetAllActivity(c echo.Context) (err error) {
 
 func (h *HandlerActivity) CreateActivity(c echo.Context) (err error) {
 	var req models.Activity
-	if err = c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, echo.Map{
-			"message": "bad request",
-		})
-	}
 
 	if req.Title == "" {
 		return c.JSON(http.StatusBadRequest, echo.Map{
@@ -77,11 +67,6 @@ func (h *HandlerActivity) CreateActivity(c echo.Context) (err error) {
 
 func (h *HandlerActivity) GetActivity(c echo.Context) (err error) {
 	var req models.Activity
-	if err = c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, echo.Map{
-			"message": "bad request",
-		})
-	}
 
 	req.ID, _ = strconv.Atoi(c.Param("id"))
 	handler := repositories.NewHandlerActivity(h.db)
@@ -105,11 +90,6 @@ func (h *HandlerActivity) GetActivity(c echo.Context) (err error) {
 
 func (h *HandlerActivity) UpdateActivity(c echo.Context) (err error) {
 	var req models.Activity
-	if err = c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, echo.Map{
-			"message": "bad request",
-		})
-	}
 
 	if req.Title == "" {
 		return c.JSON(http.StatusBadRequest, echo.Map{
@@ -141,11 +121,6 @@ func (h *HandlerActivity) UpdateActivity(c echo.Context) (err error) {
 
 func (h *HandlerActivity) DeleteActivity(c echo.Context) (err error) {
 	var req models.Activity
-	if err = c.Bind(&req); err != nil {
-		return c.JSON(http.StatusBadRequest, echo.Map{
-			"message": "bad request",
-		})
-	}
 
 	req.ID, _ = strconv.Atoi(c.Param("id"))
 	handler := repositories.NewHandlerActivity(h.db)
