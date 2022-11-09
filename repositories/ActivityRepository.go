@@ -55,12 +55,12 @@ func (h *HandlerActivity) UpdateActivity(req models.Activity) (models.Activity, 
 	return req, err
 }
 
-func (h *HandlerActivity) DeleteActivity(req models.Activity) (n interface{}, err error) {
+func (h *HandlerActivity) DeleteActivity(req models.Activity) (models.ActivityNull, error) {
 
 	db := h.db.Model(&req).Where("id = ?", req.ID).Take(&req).Delete(&req)
 
 	if db.Error != nil {
-		return nil, db.Error
+		return models.ActivityNull{}, db.Error
 	}
-	return nil, nil
+	return models.ActivityNull{}, nil
 }

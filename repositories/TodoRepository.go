@@ -60,12 +60,12 @@ func (h *HandlerTodo) UpdateTodo(req models.Todo) (models.Todo, error) {
 	return req, err
 }
 
-func (h *HandlerTodo) DeleteTodo(req models.Todo) (n interface{}, err error) {
+func (h *HandlerTodo) DeleteTodo(req models.Todo) (models.TodoNull, error) {
 
 	db := h.db.Model(&req).Where("id = ?", req.ID).Take(&req).Delete(&req)
 
 	if db.Error != nil {
-		return nil, db.Error
+		return models.TodoNull{}, db.Error
 	}
-	return nil, nil
+	return models.TodoNull{}, nil
 }
