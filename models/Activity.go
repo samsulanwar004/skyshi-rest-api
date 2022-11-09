@@ -7,13 +7,12 @@ import (
 )
 
 type Activity struct {
-	ID        int             `json:"id"`
-	Title     string          `json:"title"`
-	Email     string          `json:"email"`
-	CreatedAt time.Time       `json:"created_at"`
-	UpdatedAt time.Time       `json:"updated_at"`
-	DeletedAt *gorm.DeletedAt `json:"deleted_at"`
+	ID        int             `gorm:"column:id;primaryKey;autoIncrement:true" json:"id"`
+	Title     string          `gorm:"column:title" json:"title"`
+	Email     string          `gorm:"column:email" json:"email"`
+	CreatedAt time.Time       `gorm:"column:created_at" json:"created_at"`
+	UpdatedAt time.Time       `gorm:"column:updated_at" json:"updated_at"`
+	DeletedAt *gorm.DeletedAt `gorm:"column:deleted_at;index" json:"deleted_at"`
 }
-
 type ActivityNull struct {
 }
